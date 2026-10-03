@@ -149,6 +149,8 @@ STATIC_URL = 'static/'
 AUTH_USER_MODEL = "users.User"
 
 
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
 from datetime import timedelta
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(days=10),
