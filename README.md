@@ -4,7 +4,7 @@ HireAI is a web-based recruitment platform that connects **Job Seekers and Recru
 
 ## 🌐 Live Demo
 
-- 🖥️ **Frontend:** `YOUR-FRONTEND-URL`
+- 🖥️ **Frontend:** https://hireai-frontend-arhf.onrender.com
 - ⚙️ **Backend API:** https://hireai-backend-byrr.onrender.com
 - 📦 **GitHub:** https://github.com/CodingGenius50/HireAI
 
