@@ -7,14 +7,17 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Jobs from "./pages/Jobs";
 import JobDetails from "./pages/JobDetails";
-import MyApplications from "./pages/MyApplications";
-import CVUpload from "./pages/CVUpload";
+
 
 import RecruiterDashboard from "./pages/RecruiterDashboard";
 import RecruiterApplicants from "./pages/RecruiterApplicants";
 import CompanyManagement from "./pages/CompanyManagement";
 import JobManagement from "./pages/JobManagement";
 
+
+import MyApplications from "./pages/MyApplications";
+import CVUpload from "./pages/CVUpload";
+import Interview from "./pages/Interview";
 
 function App() {
   return (
@@ -52,6 +55,14 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route
+  path="/interview"
+  element={
+    <ProtectedRoute allowedRole="JOB_SEEKER">
+      <Interview />
+    </ProtectedRoute>
+  }
+/>
 
 
         {/* Recruiter */}

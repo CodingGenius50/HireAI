@@ -26,7 +26,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["hireai-backend-byrr.onrender.com"]
 
-
+ALLOWED_HOSTS = [
+    "127.0.0.1",
+    "localhost",
+    "hireai-backend-byrr.onrender.com",
+]
 # Application definition
 
 
