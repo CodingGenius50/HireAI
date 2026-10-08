@@ -4,16 +4,34 @@ from rest_framework.permissions import BasePermission, SAFE_METHODS
 class IsRecruiterOwnerOrReadOnly(BasePermission):
 
     def has_permission(self, request, view):
-        if not request.user or not request.user.is_authenticated:
+
+        # Anyone can view jobs
+        if request.method in SAFE_METHODS:
+            return True
+
+        # Only authenticated recruiters can create/update/delete
+        return (
+            request.user.is_authenticated
+            and request.user.role == "RECRUITER"
+        )
+
+    def has_object_permission(
+        self,
+        request,
+        view,
+        obj
+    ):
+
+        # Anyone can view job details
+        if request.method in SAFE_METHODS:
+            return True
+
+        # User must be authenticated recruiter
+        if not request.user.is_authenticated:
             return False
 
-        if request.method in SAFE_METHODS:
-            return True
+        if request.user.role != "RECRUITER":
+            return False
 
-        return request.user.role == "RECRUITER"
-
-    def has_object_permission(self, request, view, obj):
-        if request.method in SAFE_METHODS:
-            return True
-
-        return obj.company.recruiter_id == request.user.id
+        # Recruiter can modify only their own company's jobs
+        return obj.company.recruiter == request.user
