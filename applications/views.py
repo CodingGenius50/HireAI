@@ -11,13 +11,10 @@ from .serializers import (
 
 from cv.models import CV
 
-from cv.utils import (
-    extract_text_from_pdf,
-    extract_text_from_docx,
-)
 
 from cv.ai_service import (
-    evaluate_application,
+    extract_text_from_pdf,
+    extract_text_from_docx,
     generate_interview_questions,
 )
 

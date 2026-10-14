@@ -2,6 +2,9 @@ from google import genai
 from django.conf import settings
 import json
 import re
+from io import BytesIO
+from pypdf import PdfReader
+from docx import Document
 
 
 # =========================================================
@@ -133,6 +136,60 @@ CV:
 
         raise
 
+
+# =========================================================
+# EXTRACT TEXT FROM PDF
+# =========================================================
+
+def extract_text_from_pdf(file_obj):
+    try:
+        file_obj.open("rb")
+        file_bytes = file_obj.read()
+
+        reader = PdfReader(BytesIO(file_bytes))
+
+        text = "\n".join(
+            page.extract_text() or ""
+            for page in reader.pages
+        ).strip()
+
+        if not text:
+            raise ValueError(
+                "No readable text found in PDF."
+            )
+
+        return text
+
+    finally:
+        file_obj.close()
+
+
+# =========================================================
+# EXTRACT TEXT FROM DOCX
+# =========================================================
+
+def extract_text_from_docx(file_obj):
+    try:
+        file_obj.open("rb")
+        file_bytes = file_obj.read()
+
+        document = Document(BytesIO(file_bytes))
+
+        text = "\n".join(
+            paragraph.text
+            for paragraph in document.paragraphs
+            if paragraph.text.strip()
+        ).strip()
+
+        if not text:
+            raise ValueError(
+                "No readable text found in DOCX."
+            )
+
+        return text
+
+    finally:
+        file_obj.close()
 
 # =========================================================
 # CV + JOB MATCH
